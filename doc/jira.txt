@@ -1,3 +1,0 @@
-看板 filter：http://192.168.48.49:8080/issues/?filter=10731
-
-http://192.168.48.49:8080/projects/BT/issues/BT-89?filter=allopenissues
