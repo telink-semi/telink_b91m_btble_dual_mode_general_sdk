@@ -1,0 +1,7 @@
+v5.2.1.1
+1. 修复由于SetConfig冲突，造成的a2dp连接失败的问题；（双方都发SetConfigReq）
+2. 修复由于MTU size超过channel的最大值，导致发送媒体数据失败的问题；
+3. 修改MDI层bt hid相关的code；（原有逻辑有误）
+
+v5.3.0.0
+1. 优化OTA传输速率（串口传输:50KB，BT传输:70KB~120KB）

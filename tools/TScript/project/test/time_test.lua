@@ -1,0 +1,11 @@
+t = os.clock()
+print(t)
+tl_sleep_ms(1000)
+t = os.clock()
+print(t)
+test=os.date("%c")
+print(test)
+print("long wait...")
+tl_sleep_ms(100000)
+print("long wait end")
+

@@ -1,0 +1,687 @@
+# The file can only be opened and edited using VSCode. 
+# Other methods will be encrypted by the encryption system, resulting in the file cannot be correctly parsed.
+# Mtype   msgID   TestClass   Payload(CMD_L   CMD_H ...)  
+
+################################  Description  ###########################
+# 1. The comment is #.
+# 2. The format of each case 'CASE-' + 'case_name' + ':'
+# 3. The format of each command 'CMD-' + 'command_name' + ':' + 'payload'
+
+
+#GLOBAL-PeerAddr: 17 B7 F4 DC 1B 00 
+GLOBAL-PeerAddr: 6C B7 F4 DC 1B 00
+GLOBAL-PeerCOD: 18 04 08
+GLOBAL-PeerSnkCOD: 1C 04 08
+
+
+####################################
+############## GLOBAL ##############
+####################################
+CASE-Global Setting:    # msgID, payload
+    CMD-reboot: F1
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-CloseScan: D1 02 00      #Msg[0xD1-CallBthFunc],FuncID[0x0002]
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-CancelConn: D1 04 01 PeerAddr #Msg[0xD1-CallBthFunc],FuncID[0x0104]
+	CMD-CleanPeerInfo: D1 03 00 #Msg[0xD1-CallBthFunc],FuncID[0x0003]
+#	CMD-DisconnBT: D1 02 01 00 00 #Msg[0xD1-CallBthFunc],FuncID[0x0102],Handle[0x0000]
+	CMD-DisconnBT: D1 03 01 PeerAddr #Msg[0xD1-CallBthFunc],FuncID[0x0103]
+
+
+####################################
+############### HFP ################
+####################################
+#CASE number: 
+#User need to set "TSPX_delete_link_key = TRUE"
+#User need to set "TSPX_server_channel_tester = 1"
+#User need to set "TSPX_server_channel_iut = 5"
+CASE-HFP/AG/OOR/BV_02_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+CASE-HFP/AG/TRS/BV_01_C:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01
+	CMD-ConnectSCO: D1 01 02 00 00 02 00 02	#Msg[0xD1-CallBthFunc],FuncID[0x0201],Handle[0x0000],Linktype[0x0000],Airmode[0x02]
+	#CMD-PlaceCallins1: D2 54 38 37 36 35 34 33 32 31 07 00
+	#User should restart the IUT after sending the 'CMD-AnswerCall'.
+CASE-HFP/AG/PSI/BV_01_C:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+CASE-HFP/AG/PSI/BV_03_C:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+CASE-HFP/AG/PSI/BV_04_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+CASE-HFP/AG/PSI/BV_05_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+CASE-HFP/AG/ACS/BV_04_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+CASE-HFP/AG/ACS/BV_08_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+CASE-HFP/AG/ACS/BV_11_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+CASE-HFP/AG/ACS/BI_14_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+CASE-HFP/AG/ACS/BV_16_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+CASE-HFP/AG/ACR/BV_01_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/ACR/BV_02_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/CLI/BV_01_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/ICA/BV_01_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/ICA/BV_04_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/ICA/BV_06_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/ICA/BV_07_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/TCA/BV_01_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/TCA/BV_02_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/TCA/BV_03_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/TCA/BV_04_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/TCA/BV_05_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/TDS/BV_01_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/ATH/BV_03_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/ATH/BV_04_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/ATH/BV_06_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/ATA/BV_01_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/OCN/BV_01_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/OCM/BV_01_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/OCM/BV_02_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/OCL/BV_01_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/OCL/BV_02_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/TWC/BV_02_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/TWC/BV_03_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/TWC/BV_05_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/CIT/BV_01_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+	CMD-EndTheCall: D2 55 08 31 32 33 34 35 36 37 07 #Msg[0xD2-CallBtpFunc],FuncID[0x0855],Number[1234567],NumberLen[0x07]
+CASE-HFP/AG/ENO/BV_01_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/VRA/BV_01_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/VRA/BV_03_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/VRD/BV_01_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/TDC/BV_01_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/ECS/BV_01_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/ECS/BV_02_I:
+	CMD-ActiveCall: D2 56 08 31 32 33 34 35 36 37 07 #Msg[0xD2-CallBtpFunc],FuncID[0x0856],Number[1234567],NumberLen[0x07]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/ECS/BV_03_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/ECC/BV_01_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+	CMD-PlaceSecondCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/ECC/BV_02_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 37 36 35 34 33 32 31 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/NUM/BV_01_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/SLC/BV_01_C:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/SLC/BV_02_C:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/SLC/BV_03_C:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/SLC/BV_04_C:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/SLC/BV_05_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/SLC/BV_06_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/SLC/BV_07_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/ACC/BV_09_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/ACC/BI_14_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/ACC/BV_15_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/ACC/BV_16_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/ACC/BV_17_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/ACC/BV_18_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/ACC/BV_19_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/ACC/BV_20_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/ACC/BV_21_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/ACC/BV_22_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/ACC/BV_23_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/WBS/BV_01_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/DIS/BV_01_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/SDP/BV_01_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/IIA/BV_01_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/IIA/BV_02_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/IIA/BV_05_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/IID/BV_01_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/IID/BV_03_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/IID/BV_04_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/IIC/BV_01_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/IIC/BV_02_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/IIC/BV_03_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/AG/OCA/BV_01_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-PlaceCall: D2 54 08 31 32 33 34 35 36 37 07 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0854],Number[1234567],NumberLen[0x07],Isincoming[0x01]
+CASE-HFP/HF/OOR/BV_01_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-AnswerCall: D2 10 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0810],Handle[0x0000]
+	#User should restart the IUT after sending the 'CMD-AnswerCall'.
+CASE-HFP/HF/OOR/BV_02_I:
+CASE-HFP/HF/TRS/BV_01_C:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-AnswerCall: D2 10 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0810],Handle[0x0000]
+CASE-HFP/HF/ACS/BV_03_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+CASE-HFP/HF/ACS/BV_07_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-AnswerCall: D2 10 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0810],Handle[0x0000]
+CASE-HFP/HF/ACS/BV_12_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-AnswerCall: D2 10 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0810],Handle[0x0000]
+CASE-HFP/HF/ACS/BI_13_I:	### @@@@@@ this case not PASS @@@@@@ ###
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-AnswerCall: D2 10 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0810],Handle[0x0000]
+	### Audio Connection enabled by tester
+CASE-HFP/HF/ACS/BV_15_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+CASE-HFP/HF/ACR/BV_01_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-AnswerCall: D2 10 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0810],Handle[0x0000]
+	#User should restart the IUT after sending the 'CMD-AnswerCall'.
+CASE-HFP/HF/ACR/BV_02_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+CASE-HFP/HF/ICA/BV_01_I:
+	CMD-AnswerCall: D2 10 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0810],Handle[0x0000]
+CASE-HFP/HF/ICA/BV_02_I:
+	CMD-AnswerCall: D2 10 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0810],Handle[0x0000]
+	CMD-RejectCall: D2 14 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0814],Handle[0x0000]
+	CMD-AnswerCall: D2 10 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0810],Handle[0x0000]
+CASE-HFP/HF/ICA/BV_03_I:
+	CMD-AnswerCall: D2 10 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0810],Handle[0x0000]
+CASE-HFP/HF/ICA/BV_04_I:
+	CMD-AnswerCall: D2 10 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0810],Handle[0x0000]
+CASE-HFP/HF/ICA/BV_05_I:
+	CMD-AnswerCall: D2 10 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0810],Handle[0x0000]
+CASE-HFP/HF/ICA/BV_06_I:
+
+CASE-HFP/HF/ICA/BV_07_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]
+	CMD-ConnectHFPHF: D2 01 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x01]
+	CMD-AnswerCall: D2 10 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0810],Handle[0x0000]
+CASE-HFP/HF/ICR/BV_01_I:
+	CMD-RejectCall: D2 14 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0814],Handle[0x0000]
+CASE-HFP/HF/ICR/BV_02_I:
+
+CASE-HFP/HF/TCA/BV_01_I:
+	CMD-AnswerCall: D2 10 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0810],Handle[0x0000]
+	CMD-RejectCall: D2 14 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0814],Handle[0x0000]
+CASE-HFP/HF/TCA/BV_02_I:
+	CMD-AnswerCall: D2 10 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0810],Handle[0x0000]
+CASE-HFP/HF/TCA/BV_03_I:
+	CMD-AnswerCall: D2 10 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0810],Handle[0x0000]
+CASE-HFP/HF/TCA/BV_04_I:
+	CMD-OutgoingCall: D2 12 08 00 00 07 31 32 33 34 35 36 37	#Msg[0xD2-CallBtpFunc],FuncID[0x0812],Handle[0x0000],Numlen[0x07],PhoneNum[1234567]
+	CMD-CancelOutgoingCall: D2 14 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0814],Handle[0x0000]
+CASE-HFP/HF/TDS/BV_01_I:		### @@@@@@ this case not PASS @@@@@@ ###
+	### AT+BCS is received without a preceding +BCS command.
+CASE-HFP/HF/ATH/BV_03_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]
+	CMD-ConnectHFPHF: D2 01 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x01]
+	CMD-ConnectSCO: D1 01 02 00 00 00 00 02	#Msg[0xD1-CallBthFunc],FuncID[0x0201],Handle[0x0000],Linktype[0x0002],Airmode[0x02]
+CASE-HFP/HF/ATH/BV_04_I:	### @@@@@@ this case not PASS @@@@@@ ###
+	CMD-AnswerCall: D2 10 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0810],Handle[0x0000]
+	CMD-ConnectSCO: D1 01 02 00 00 00 00 02	#Msg[0xD1-CallBthFunc],FuncID[0x0201],Handle[0x0000],Linktype[0x0000],Airmode[0x02]
+CASE-HFP/HF/ATH/BV_05_I:	### @@@@@@ this case not PASS @@@@@@ ###
+	### Either tester attempts to connect eSCO rejected by IUT, or IUT attempts to connect eSCO rejected by tester
+CASE-HFP/HF/ATH/BV_06_I:
+	CMD-AnswerCall: D2 10 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0810],Handle[0x0000]
+CASE-HFP/HF/ATA/BV_01_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-AnswerCall: D2 10 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0810],Handle[0x0000]
+CASE-HFP/HF/ATA/BV_02_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-AnswerCall: D2 10 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0810],Handle[0x0000]
+	#User should restart the IUT after sending the 'CMD-AnswerCall'.
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+CASE-HFP/HF/OCN/BV_01_I:	
+	CMD-OutgoingCall: D2 12 08 00 00 07 31 32 33 34 35 36 37	#Msg[0xD2-CallBtpFunc],FuncID[0x0812],Handle[0x0000],Numlen[0x07],PhoneNum[1234567]
+CASE-HFP/HF/OCM/BV_01_I:	### @@@@@@ this case not PASS @@@@@@ ###
+	CMD-OutgoingCall: D2 12 08 00 00 07 31 32 33 34 35 36 37 	#Msg[0xD2-CallBtpFunc],FuncID[0x0812],Handle[0x0000],Numlen[0x07],PhoneNum[1234567]
+	### Error establishing call
+CASE-HFP/HF/OCM/BV_02_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-OutgoingCall: D2 12 08 00 00 07 31 32 33 34 35 36 37	#Msg[0xD2-CallBtpFunc],FuncID[0x0812],Handle[0x0000],Numlen[0x07],PhoneNum[1234567]
+CASE-HFP/HF/OCL/BV_01_I:	### @@@@@@ this case not PASS @@@@@@ ###
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-OutgoingCall: D2 12 08 00 00 07 31 32 33 34 35 36 37	#Msg[0xD2-CallBtpFunc],FuncID[0x0812],Handle[0x0000],Numlen[0x07],PhoneNum[1234567]
+	### Error establishing call
+CASE-HFP/HF/OCL/BV_02_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-OutgoingCall: D2 12 08 00 00 07 31 32 33 34 35 36 37	#Msg[0xD2-CallBtpFunc],FuncID[0x0812],Handle[0x0000],Numlen[0x07],PhoneNum[1234567]
+CASE-HFP/HF/TWC/BV_01_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+	CMD-AnswerCall: D2 10 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0810],Handle[0x0000]
+	CMD-CallTSPX_phone_number: D2 12 08 00 00 07 31 32 33 34 35 36 37	#Msg[0xD2-CallBtpFunc],FuncID[0x0812],Handle[0x0000],Numlen[0x07],PhoneNum[1234567]
+	CMD-CallTSPX_second_phone_number: D2 12 08 00 00 07 37 36 35 34 33 32 31 #Msg[0xD2-CallBtpFunc],FuncID[0x0812],Handle[0x0000],Numlen[0x07],PhoneNum[7654321]
+CASE-HFP/HF/TWC/BV_02_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+	CMD-AnswerCall: D2 10 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0810],Handle[0x0000]
+	CMD-CallTSPX_phone_number: D2 12 08 00 00 07 01 02 03 04 05 06 07	#Msg[0xD2-CallBtpFunc],FuncID[0x0812],Handle[0x0000],Numlen[0x07],PhoneNum[1234567]
+	CMD-CallTSPX_second_phone_number: D2 12 08 00 00 07 07 06 05 04 03 02 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0812],Handle[0x0000],Numlen[0x07],PhoneNum[7654321]
+CASE-HFP/HF/TWC/BV_03_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+	CMD-AnswerCall: D2 10 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0810],Handle[0x0000]
+	CMD-CallTSPX_phone_number: D2 12 08 00 00 07 01 02 03 04 05 06 07	#Msg[0xD2-CallBtpFunc],FuncID[0x0812],Handle[0x0000],Numlen[0x07],PhoneNum[1234567]
+	CMD-CallTSPX_second_phone_number: D2 12 08 00 00 07 07 06 05 04 03 02 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0812],Handle[0x0000],Numlen[0x07],PhoneNum[7654321]
+CASE-HFP/HF/CIT/BV_01_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+CASE-HFP/HF/ENO/BV_01_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+	CMD-AnswerCall: D2 10 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0810],Handle[0x0000]
+	### Using the Implemenation Under Test (IUT), disable  EC/NR, then click Ok.
+CASE-HFP/HF/VRA/BV_01_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+	CMD-ActivateVoiceRecognition: D2 18 08 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0818],Handle[0x0000]
+	CMD-DeactivateVoiceRecognition: D2 18 08 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0818],Handle[0x0000]
+CASE-HFP/HF/VRA/BV_02_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+CASE-HFP/HF/VRA/BV_03_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+	CMD-ActivateVoiceRecognition: D2 18 08 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0818],Handle[0x0000]
+	CMD-DeactivateVoiceRecognition: D2 18 08 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0818],Handle[0x0000]
+CASE-HFP/HF/VRD/BV_01_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+	CMD-ActivateVoiceRecognition: D2 18 08 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0818],Handle[0x0000]
+	CMD-DeactivateVoiceRecognition: D2 18 08 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0818],Handle[0x0000]
+CASE-HFP/HF/ECS/BV_01_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]
+	CMD-ConnectHFPHF: D2 01 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x01]
+CASE-HFP/HF/ECS/BV_02_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]
+	CMD-ConnectHFPHF: D2 01 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x01]
+CASE-HFP/HF/ECS/BV_03_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+	CMD-AnswerCall: D2 10 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0810],Handle[0x0000]
+CASE-HFP/HF/ECC/BV_01_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+	CMD-AnswerCall: D2 10 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0810],Handle[0x0000]
+	CMD-WaitAndHoldActive: D2 16 08 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0816],Handle[0x0000]
+	CMD-RejectWaitAndKeepActive: D2 15 08 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0815],Handle[0x0000]
+CASE-HFP/HF/ECC/BV_02_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+	CMD-AnswerCall: D2 10 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0810],Handle[0x0000]
+	CMD-WaitAndHoldActive: D2 16 08 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0816],Handle[0x0000]
+	CMD-RejectWaitAndKeepActive: D2 17 08 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0815],Handle[0x0000]
+CASE-HFP/HF/SLC/BV_01_C:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]
+	CMD-ConnectHFPHF: D2 01 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x01]
+CASE-HFP/HF/SLC/BV_02_C:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]
+	CMD-ConnectHFPHF: D2 01 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x01]
+CASE-HFP/HF/SLC/BV_03_C:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]
+	CMD-ConnectHFPHF: D2 01 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x01]
+CASE-HFP/HF/SLC/BV_04_C:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]
+	CMD-ConnectHFPHF: D2 01 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x01]
+CASE-HFP/HF/SLC/BV_05_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]
+	CMD-ConnectHFPHF: D2 01 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x01]
+CASE-HFP/HF/SLC/BV_06_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]
+	CMD-ConnectHFPHF: D2 01 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x01]
+CASE-HFP/HF/SLC/BV_08_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]
+	CMD-ConnectHFPHF: D2 01 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x01]
+CASE-HFP/HF/SLC/BV_09_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]
+	CMD-ConnectHFPHF: D2 01 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x01]
+CASE-HFP/HF/SLC/BV_10_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+CASE-HFP/HF/ACC/BV_03_I:	### @@@@@@ this case not PASS @@@@@@ ###
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+	CMD-ConnectSCO: D1 01 02 00 00 00 00 02	#Msg[0xD1-CallBthFunc],FuncID[0x0201],Handle[0x0000],Linktype[0x0000],Airmode[0x02]
+	### - HCI: Either tester attempts to connect eSCO rejected by IUT, or IUT attempts to connect eSCO rejected by tester
+CASE-HFP/HF/ACC/BV_05_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+CASE-HFP/HF/ACC/BV_06_I:
+	###- FATAL ERROR (AT): AT+BCS is received without a preceding +BCS command.
+CASE-HFP/HF/ACC/BV_07_I:
+	###- FATAL ERROR (AT): AT+BCS is received without a preceding +BCS command.
+CASE-HFP/HF/ACC/BV_08_I:
+	###- FATAL ERROR (AT): AT+BCS is received without a preceding +BCS command.
+CASE-HFP/HF/ACC/BV_09_I:
+	###- FATAL ERROR (AT): AT+BCS is received without a preceding +BCS command.
+CASE-HFP/HF/ACC/BV_10_I:
+	###- FATAL ERROR (AT): AT+BCS is received without a preceding +BCS command.
+CASE-HFP/HF/ACC/BV_11_I:
+	###- FATAL ERROR (AT): AT+BCS is received without a preceding +BCS command.
+CASE-HFP/HF/ACC/BV_12_I:
+	###- FATAL ERROR (AT): AT+BCS is received without a preceding +BCS command.
+CASE-HFP/HF/ACC/BV_13_I:
+	###- FATAL ERROR (AT): AT+BCS is received without a preceding +BCS command.
+CASE-HFP/HF/WBS/BV_02_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+CASE-HFP/HF/WBS/BV_03_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+CASE-HFP/HF/DIS/BV_01_I:
+	CMD-CleanPeerInfo: D1 03 00 #Msg[0xD1-CallBthFunc],FuncID[0x0003]
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+CASE-HFP/HF/SDP/BV_01_I:
+	CMD-CleanPeerInfo: D1 03 00 #Msg[0xD1-CallBthFunc],FuncID[0x0003]
+	CMD-AnswerCall: D2 10 08 00 00	#Msg[0xD2-CallBtpFunc],FuncID[0x0810],Handle[0x0000]
+CASE-HFP/HF/HFI/BV_01_I:
+	###- MTC FAIL: IUT didn't send an update of the indicator when it should.
+CASE-HFP/HF/HFI/BI_01_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+CASE-HFP/HF/OCA/BV_01_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+CASE-IOPT/CL/HFP_AG/COD/BV_02_I:
+	CMD-CleanPeerInfo: D1 03 00 #Msg[0xD1-CallBthFunc],FuncID[0x0003]
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]	
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+CASE-IOPT/CL/HFP_AG/SFC/BV_13_I:
+	CMD-CleanPeerInfo: D1 03 00 #Msg[0xD1-CallBthFunc],FuncID[0x0003]
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]	
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]
+	CMD-ConnectHFPAG: D2 51 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x00]
+	CMD-DisonnHFPAG: D2 52 08 00 00		#Msg[0xD2-CallBtpFunc],FuncID[0x0852]
+	CMD-DisconnRFC: D2 02 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0202],Handle[0x0000]
+CASE-IOPT/CL/HFP_HF/SFC/BV_14_I:
+	CMD-CleanPeerInfo: D1 03 00 #Msg[0xD1-CallBthFunc],FuncID[0x0003]
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]
+	CMD-ConnectHFPHF: D2 01 08 00 00 01	#Msg[0xD2-CallBtpFunc],FuncID[0x0801],Handle[0x0000],Channel[0x01]
+

@@ -1,0 +1,120 @@
+# The file can only be opened and edited using VSCode. 
+# Other methods will be encrypted by the encryption system, resulting in the file cannot be correctly parsed.
+# Mtype   msgID   TestClass   Payload(CMD_L   CMD_H ...)  
+
+################################  Description  ###########################
+# 1. The comment is #.
+# 2. The format of each case 'CASE-' + 'case_name' + ':'
+# 3. The format of each command 'CMD-' + 'command_name' + ':' + 'payload'
+
+
+#GLOBAL-PeerAddr: 17 B7 F4 DC 1B 00 
+GLOBAL-PeerAddr: 6C B7 F4 DC 1B 00
+GLOBAL-PeerCOD: 18 04 08
+GLOBAL-PeerSnkCOD: 1C 04 08
+
+
+####################################
+############## GLOBAL ##############
+####################################
+CASE-Global Setting:    # msgID, payload
+    CMD-reboot: F1
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-CloseScan: D1 02 00      #Msg[0xD1-CallBthFunc],FuncID[0x0002]
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-CancelConn: D1 04 01 PeerAddr #Msg[0xD1-CallBthFunc],FuncID[0x0104]
+	CMD-CleanPeerInfo: D1 03 00 #Msg[0xD1-CallBthFunc],FuncID[0x0003]
+#	CMD-DisconnBT: D1 02 01 00 00 #Msg[0xD1-CallBthFunc],FuncID[0x0102],Handle[0x0000]
+	CMD-DisconnBT: D1 03 01 PeerAddr #Msg[0xD1-CallBthFunc],FuncID[0x0103]
+
+
+####################################
+############### PBAP ###############
+####################################
+#CASE number: 14
+#User need to set "TSPX_delete_link_key = TRUE"
+#User need to set "TSPX_security_enabled = TRUE"
+#User need to set "TSPX_rfcomm_channel = 9"
+#User need to set "TSPX_PBAP_rfcomm_channel = 9"
+#CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+#CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]
+#CMD-DisconnRFC: D2 02 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0202],Handle[0x0000]
+#CMD-ConnectPBAP: D2 01 0B 00 00 03 09 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0B01],Handle[0x0000],UsrID[0x00],Channel[0x0009],IsL2cap[0x00-false]
+#CMD-DisconnPBAP: D2 02 0B 00 00 03 #Msg[0xD2-CallBtpFunc],FuncID[0x0B02],Handle[0x0000],Role[0x03-client]
+#CMD-EnableRtn: D2 03 0B 01 03 #Msg[0xD2-CallBtpFunc],FuncID[0x0B03],Enable[0x01],RtnMode[0x03]
+#CMD-SendGetReq: D2 04 0B 00 00 00 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0B04],Handle[0x0000],IsWait[0x00],IsSRM[0x01]
+#CMD-SendGetContinue: D2 05 0B 00 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0B05],Handle[0x0000],IsWait[0x00]
+
+CASE-PBAP/PCE/GOEP/BC/BV_04_I:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]
+	CMD-ConnectPBAP: D2 01 0B 00 00 03 09 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0B01],Handle[0x0000],UsrID[0x00],Channel[0x0009],IsL2cap[0x00-false]
+	CMD-SendGetReq: D2 04 0B 00 00 00 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0B04],Handle[0x0000],IsWait[0x00],IsSRM[0x01]
+	CMD-DisconnPBAP: D2 02 0B 00 00 03 #Msg[0xD2-CallBtpFunc],FuncID[0x0B02],Handle[0x0000],Role[0x03-client]
+CASE-PBAP/PCE/GOEP/CON/BV_01_C:
+	CMD-EnableRtn: D2 03 0B 01 03 #Msg[0xD2-CallBtpFunc],FuncID[0x0B03],Enable[0x01],RtnMode[0x03]
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectPBAP: D2 01 0B 00 00 03 05 10 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0B01],Handle[0x0000],UsrID[0x03],Channel[0x1005],IsL2cap[0x01-true]
+CASE-PBAP/PCE/GOEP/SRM/BV_05_C:
+	CMD-EnableRtn: D2 03 0B 01 03 #Msg[0xD2-CallBtpFunc],FuncID[0x0B03],Enable[0x01],RtnMode[0x03]
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectPBAP: D2 01 0B 00 00 03 05 10 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0B01],Handle[0x0000],UsrID[0x03],Channel[0x1005],IsL2cap[0x01-true]
+	CMD-SendGetReq2: D2 0A 0B 00 00 01 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0B04],Handle[0x0000],IsWait[0x00],IsSRM[0x01]
+	CMD-SendGetContWithWait: D2 05 0B 00 00 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0B05],Handle[0x0000],IsWait[0x01]
+	CMD-SendGetContinue: D2 05 0B 00 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0B05],Handle[0x0000],IsWait[0x00]
+	CMD-SendGetContinue2: D2 0B 0B 00 00 01 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0B05],Handle[0x0000],IsWait[0x00]
+	CMD-SendGetReq1: D2 06 0B 00 00 00 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0B04],Handle[0x0000],IsWait[0x00],IsSRM[0x01]
+	CMD-SendGetReq1: D2 06 0B 00 00 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0B04],Handle[0x0000],IsWait[0x00],IsSRM[0x01]
+	//not pass
+CASE-PBAP/PCE/GOEP/SRM/BV_07_C:
+	CMD-EnableRtn: D2 03 0B 01 03 #Msg[0xD2-CallBtpFunc],FuncID[0x0B03],Enable[0x01],RtnMode[0x03]
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectPBAP: D2 01 0B 00 00 03 05 10 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0B01],Handle[0x0000],UsrID[0x03],Channel[0x1005],IsL2cap[0x01-true]
+	CMD-SendGetReq1: D2 06 0B 00 00 00 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0B04],Handle[0x0000],IsWait[0x00],IsSRM[0x01]
+CASE-PBAP/PCE/GOEP/SRMP/BV_06_C:
+	CMD-EnableRtn: D2 03 0B 01 03 #Msg[0xD2-CallBtpFunc],FuncID[0x0B03],Enable[0x01],RtnMode[0x03]
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectPBAP: D2 01 0B 00 00 03 05 10 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0B01],Handle[0x0000],UsrID[0x03],Channel[0x1005],IsL2cap[0x01-true]
+	CMD-SendGetReq1: D2 06 0B 00 00 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0B04],Handle[0x0000],IsWait[0x00],IsSRM[0x01]
+	CMD-SendGetContinue: D2 05 0B 00 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0B05],Handle[0x0000],IsWait[0x00]
+CASE-PBAP/PCE/GOEP/SRMP/BI_01_C:
+	CMD-EnableRtn: D2 03 0B 01 03 #Msg[0xD2-CallBtpFunc],FuncID[0x0B03],Enable[0x01],RtnMode[0x03]
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectPBAP: D2 01 0B 00 00 03 05 10 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0B01],Handle[0x0000],UsrID[0x03],Channel[0x1005],IsL2cap[0x01-true]
+	CMD-SendGetReq1: D2 06 0B 00 00 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0B04],Handle[0x0000],IsWait[0x00],IsSRM[0x01]
+	CMD-SendGetContinue: D2 05 0B 00 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0B05],Handle[0x0000],IsWait[0x00]
+CASE-PBAP/PCE/PBD/BV_01_C:
+	CMD-EnableRtn: D2 03 0B 01 03 #Msg[0xD2-CallBtpFunc],FuncID[0x0B03],Enable[0x01],RtnMode[0x03]
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectPBAP: D2 01 0B 00 00 03 05 10 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0B01],Handle[0x0000],UsrID[0x03],Channel[0x1005],IsL2cap[0x01-true]
+	CMD-SendGetReq1: D2 06 0B 00 00 00 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0B04],Handle[0x0000],IsWait[0x00],IsSRM[0x01]
+CASE-PBAP/PCE/PDF/BV_01_I:
+	CMD-EnableRtn: D2 03 0B 01 03 #Msg[0xD2-CallBtpFunc],FuncID[0x0B03],Enable[0x01],RtnMode[0x03]
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectPBAP: D2 01 0B 00 00 03 05 10 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0B01],Handle[0x0000],UsrID[0x03],Channel[0x1005],IsL2cap[0x01-true]
+	CMD-SendGetReq1: D2 06 0B 00 00 00 01 #Msg[0xD2-CallBtpFunc],FuncID[0x0B04],Handle[0x0000],IsWait[0x00],IsSRM[0x01]
+CASE-PBAP/PCE/SSM/BV_01_C:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]
+	CMD-ConnectPBAP: D2 01 0B 00 00 03 09 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0B01],Handle[0x0000],UsrID[0x00],Channel[0x0009],IsL2cap[0x00-false]
+CASE-PBAP/PCE/SSM/BV_02_C:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]
+	CMD-ConnectPBAP: D2 01 0B 00 00 03 09 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0B01],Handle[0x0000],UsrID[0x00],Channel[0x0009],IsL2cap[0x00-false]
+	CMD-DisconnPBAP: D2 02 0B 00 00 03 #Msg[0xD2-CallBtpFunc],FuncID[0x0B02],Handle[0x0000],Role[0x03-client]
+CASE-PBAP/PCE/SSM/BV_06_C:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]
+	CMD-ConnectPBAP: D2 08 0B 00 00 03 09 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0B08],Handle[0x0000],UsrID[0x00],Channel[0x0009],IsL2cap[0x00-false]
+	CMD-DisconnPBAP: D2 02 0B 00 00 03 #Msg[0xD2-CallBtpFunc],FuncID[0x0B02],Handle[0x0000],Role[0x03-client]
+CASE-PBAP/PCE/SSM/BV_09_C:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]
+	CMD-ConnectPBAP: D2 08 0B 00 00 03 09 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0B08],Handle[0x0000],UsrID[0x00],Channel[0x0009],IsL2cap[0x00-false]
+	CMD-DisconnPBAP: D2 02 0B 00 00 03 #Msg[0xD2-CallBtpFunc],FuncID[0x0B02],Handle[0x0000],Role[0x03-client]
+CASE-PBAP/PCE/SSM/BV_10_C:
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectRFC: D2 01 02 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0201],Handle[0x0000]
+	CMD-ConnectPBAP: D2 01 0B 00 00 03 09 00 00 #Msg[0xD2-CallBtpFunc],FuncID[0x0B01],Handle[0x0000],UsrID[0x00],Channel[0x0009],IsL2cap[0x00-false]
+CASE-IOPT/CL/PBAP_PCE/SFC/BV_22_I:
+	CMD-CleanPeerInfo: D1 03 00 #Msg[0xD1-CallBthFunc],FuncID[0x0003]
