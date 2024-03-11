@@ -28,6 +28,7 @@
 ### BREAKING CHANGES
 
 - Merge the SDKs for B91 and B92, upgrade the corresponding IDE to Telink IoT Studio, and update the associated Toolchain to gcc10. You will need to install the new [Telink IoT Studio](https://wiki.telink-semi.cn/wiki/IDE-and-Tools/Telink_IoT_Studio/) to compile projects in the SDK. For the b91_btble_dual_mode_general_sdk V5.1.3.0 and earlier versions, please continue using [Telink V323 RDS](https://wiki.telink-semi.cn/tools_and_sdk/Tools/IDE/telink_v323_rds_official_windows.zip)- Adjustment of part of the B91 interface to align with the B92 interface
+- Adjustment of part of the B91 interface to align with the B92 interface
 - Split system tasks to separate out device task and debug task
 - Refactor device's driver code, and support getting available device list and running device list
 - BT Host and Profile use dynamic memory mechanism, which can be tailored by the user as needed
