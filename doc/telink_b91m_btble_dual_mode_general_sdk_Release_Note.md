@@ -1,3 +1,65 @@
+## V5.3.0.0_Patch_0001(PR)
+
+### Dependency Updates
+
+- N/A
+
+### Features
+
+- N/A
+
+### Bug Fixs
+
+- Fixed an issue  of program running abnormally when the storage location of bin file exceeds the 0xFC000 location of chip flash.
+
+### KNOWN ISSUES
+
+- N/A
+
+### BREAKING CHANGES
+
+- **Application**
+  - Add the binding mechanism between MDI layer BLE configuration information and chip flash capacity
+    - Add the flash capacity binding mechanism of the TLK_CFG_FLASH_LE_ADR_CUSTOM_PAIRING_ADDR macro in tlkmdi_le_custom_pair.c
+    - Add the flash capacity binding mechanism of the TLK_CFG_FLASH_LE_SDP_ATT_ADRR macro in tlkmdi_le_simple_sdp.c
+  - Add the binding mechanism between MMI layer BT Audio configuration information and chip flash capacity
+    - Add the flash capacity binding mechanism of the BTH_DEVICE_SAVE_ADDR0 macro in tlkmmi_audioInfo.c
+- **Stack**
+  - Add the binding mechanism between BT pairing information and chip flash capacity 
+    - Add the flash capacity binding mechanism of the BTH_DEVICE_SAVE_ADDR0 and  BTH_DEVICE_SAVE_ADDR1 macro in bth_device.c
+  - Add the binding mechanism between BLE pairing information and chip flash capacity
+    - Add the flash capacity binding mechanism of the TLK_CFG_FLASH_LE_SMP_PAIRING_ADDR macro in ble.c
+
+### Dependency Updates
+
+- N/A
+
+### Features
+
+- N/A
+
+### Bug Fixs
+
+- 修复bin文件存储位置超出芯片flash的0xFC000位置后引发程序运行异常的问题
+
+### KNOWN ISSUES
+
+- N/A
+
+### BREAKING CHANGES
+
+- **Application**
+  - 添加MDI层BLE配置信息与芯片flash容量绑定的机制
+    - tlkmdi_le_custom_pair.c中添加TLK_CFG_FLASH_LE_ADR_CUSTOM_PAIRING_ADDR宏的flash容量绑定机制
+    - tlkmdi_le_simple_sdp.c中添加TLK_CFG_FLASH_LE_SDP_ATT_ADRR宏的flash容量绑定机制
+  - 添加MMI层BT Audio配置信息与芯片flash容量绑定的机制
+    - tlkmmi_audioInfo.c中添加BTH_DEVICE_SAVE_ADDR0宏的flash容量绑定机制
+- **Stack**
+  - 添加BT配对信息与芯片flash容量绑定的机制
+    - bth_device.c中添加BTH_DEVICE_SAVE_ADDR0、BTH_DEVICE_SAVE_ADDR1宏的flash容量绑定机制
+  - 添加BLE配对信息与芯片flash容量绑定的机制
+    - ble.c中添加TLK_CFG_FLASH_LE_SMP_PAIRING_ADDR宏的flash容量绑定机制
+
 ## V5.3.0.0(PR)
 
 ### Dependency Updates
