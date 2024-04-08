@@ -27,7 +27,9 @@
 #include "tlkmmi_stack.h"
 #include "tlkmmi_stackAdapt.h"
 #include "tlkstk/tlkstk_stdio.h"
+#include "tlkstk/ble/ble.h"
 
+extern unsigned int tlkcfg_getFlashAddr(unsigned int offset);
 extern void btble_pm_initPowerManagement_module(void);
 
 TLKSYS_MMI_TASK_DEFINE(stack, Stack);
@@ -35,6 +37,7 @@ TLKSYS_MMI_TASK_DEFINE(stack, Stack);
 
 static int tlkmmi_stack_init(uint08 procID, uint16 taskID)
 {
+	ble_reg_getFlashAddrCB(tlkcfg_getFlashAddr);
 	tlkmmi_stack_adaptInit(procID);
 	tlkstk_init();
 	

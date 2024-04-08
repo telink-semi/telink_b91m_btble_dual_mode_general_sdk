@@ -43,10 +43,14 @@ tlkmmi_audio_infoCtrl_t gTlkMmiAudioInfoCtrl;
 *******************************************************************************/
 int tlkmmi_audio_infoInit(void)
 {
+	unsigned int addr = 0;
 	tmemset(&gTlkMmiAudioInfoCtrl, 0, sizeof(tlkmmi_audio_infoCtrl_t));
+
+	addr = tlkcfg_getFlashAddr(TLKMDI_AUDIO_VOLUME_SAVE_ADDR);
+	if(addr == 0) return -TLK_EFAIL;
 	
 	tlkapi_save2_init(&gTlkMmiAudioInfoCtrl.save, TLKMDI_AUDIO_VOLUME_SAVE_SIGN, TLKMDI_AUDIO_VOLUME_SAVE_VERS,
-		TLKMDI_AUDIO_VOLUME_SAVE_SIZE, TLKMDI_AUDIO_VOLUME_SAVE_ADDR);
+		TLKMDI_AUDIO_VOLUME_SAVE_SIZE, addr);
 
 	gTlkMmiAudioInfoCtrl.item.tone = 60;
 	gTlkMmiAudioInfoCtrl.item.music = 60;
