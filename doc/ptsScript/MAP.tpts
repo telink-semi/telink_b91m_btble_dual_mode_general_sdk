@@ -1,0 +1,98 @@
+# The file can only be opened and edited using VSCode. 
+# Other methods will be encrypted by the encryption system, resulting in the file cannot be correctly parsed.
+# Mtype   msgID   TestClass   Payload(CMD_L   CMD_H ...)  
+
+################################  Description  ###########################
+# 1. The comment is #.
+# 2. The format of each case 'CASE-' + 'case_name' + ':'
+# 3. The format of each command 'CMD-' + 'command_name' + ':' + 'payload'
+
+
+#GLOBAL-PeerAddr: 17 B7 F4 DC 1B 00 
+GLOBAL-PeerAddr: 6C B7 F4 DC 1B 00
+GLOBAL-PeerCOD: 18 04 08
+GLOBAL-PeerSnkCOD: 1C 04 08
+
+
+####################################
+############## GLOBAL ##############
+####################################
+CASE-Global Setting:    # msgID, payload
+    CMD-reboot: F1
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-CloseScan: D1 02 00      #Msg[0xD1-CallBthFunc],FuncID[0x0002]
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-CancelConn: D1 04 01 PeerAddr #Msg[0xD1-CallBthFunc],FuncID[0x0104]
+	CMD-CleanPeerInfo: D1 03 00 #Msg[0xD1-CallBthFunc],FuncID[0x0003]
+#	CMD-DisconnBT: D1 02 01 00 00 #Msg[0xD1-CallBthFunc],FuncID[0x0102],Handle[0x0000]
+	CMD-DisconnBT: D1 03 01 PeerAddr #Msg[0xD1-CallBthFunc],FuncID[0x0103]
+
+
+####################################
+############### MAP ################
+####################################
+#CASE number: 64
+CASE-MAP/MCE/MSM/BV_01_I:
+CASE-MAP/MCE/MSM/BV_02_I:
+CASE-MAP/MCE/MSM/BV_03_I:
+CASE-MAP/MCE/MSM/BV_04_I:
+CASE-MAP/MCE/MMN/BV_01_I:
+CASE-MAP/MCE/MMN/BV_03_I:
+CASE-MAP/MCE/MFB/BV_01_I:
+CASE-MAP/MCE/MFB/BV_04_I:
+CASE-MAP/MCE/MFB/BV_03_I:
+CASE-MAP/MCE/MFB/BV_06_I:
+CASE-MAP/MCE/GOEP/BC/BV_02_I:
+CASE-MAP/MCE/GOEP/BC/BV_04_I:
+CASE-MAP/MCE/GOEP/ROB/BV_01_C:
+CASE-MAP/MCE/GOEP/ROB/BV_02_C:
+CASE-MAP/MCE/GOEP/BC/BV_04_I:
+CASE-MAP/MCE/GOEP/ROB/BV_01_C:
+CASE-MAP/MCE/GOEP/ROB/BV_02_C:
+CASE-MAP/MCE/GOEP/CON/BV_01_C:
+CASE-MAP/MCE/GOEP/CON/BV_02_C:
+CASE-MAP/MCE/GOEP/SRM/BV_03_C:
+CASE-MAP/MCE/GOEP/SRM/BV_07_C:
+CASE-MAP/MCE/GOEP/SRMP/BI_01_C:
+CASE-MAP/MCE/GOEP/SRMP/BV_01_C:
+CASE-MAP/MCE/GOEP/SRMP/BV_06_C:
+CASE-MAP/MSE/MSM/BV_05_I:
+CASE-MAP/MSE/MSM/BV_06_I:
+CASE-MAP/MSE/MSM/BV_07_I:
+CASE-MAP/MSE/MSM/BV_08_I:
+CASE-MAP/MSE/MNR/BV_03_I:
+CASE-MAP/MSE/MNR/BV_04_I:
+CASE-MAP/MSE/MMB/BV_09_I:
+CASE-MAP/MSE/MMB/BV_10_I:
+CASE-MAP/MSE/MMB/BV_11_I:
+CASE-MAP/MSE/MMB/BV_15_I:
+CASE-MAP/MSE/MMB/BV_16_I:
+CASE-MAP/MSE/MMB/BV_18_I:
+CASE-MAP/MSE/MMB/BV_20_I:
+CASE-MAP/MSE/MMB/BV_36_I:
+CASE-MAP/MSE/MMD/BV_02_I:
+CASE-MAP/MSE/MMU/BV_02_I:
+CASE-MAP/MSE/MMU/BV_03_I:
+CASE-MAP/MSE/MMN/BV_02_I:
+CASE-MAP/MSE/MMN/BV_04_I:
+CASE-MAP/MSE/MMN/BV_06_I:
+CASE-MAP/MSE/MMN/BV_07_I:
+CASE-MAP/MSE/MMN/BV_14_I:
+CASE-MAP/MSE/MFB/BV_02_I:
+CASE-MAP/MSE/MFB/BV_05_I:
+CASE-MAP/MSE/MFB/BV_07_I:
+CASE-MAP/MSE/MMI/BV_02_I:
+CASE-MAP/MSE/GOEP/BC/BV_01_I:
+CASE-MAP/MSE/GOEP/BC/BV_03_I:
+CASE-MAP/MSE/GOEP/ROB/BV_02_C:
+CASE-MAP/MSE/GOEP/ROB/BV_01_C:
+CASE-MAP/MSE/GOEP/CON/BV_01_C:
+CASE-MAP/MSE/GOEP/CON/BV_02_C:
+CASE-MAP/MSE/GOEP/SRM/BI_02_C:
+CASE-MAP/MSE/GOEP/SRM/BI_03_C:
+CASE-MAP/MSE/GOEP/SRM/BI_05_C:
+CASE-MAP/MSE/GOEP/SRM/BV_04_C:
+CASE-MAP/MSE/GOEP/SRM/BV_08_C:
+CASE-MAP/MSE/GOEP/SRMP/BI_02_C:
+CASE-MAP/MSE/GOEP/SRMP/BV_02_C:
+CASE-IOPT/CL/MAP_MCE/SFC/BV_18_I:

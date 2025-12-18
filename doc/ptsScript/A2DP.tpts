@@ -1,0 +1,142 @@
+GLOBAL-PeerAddr: 17 B7 F4 DC 1B 00 
+#GLOBAL-PeerAddr: 6C B7 F4 DC 1B 00
+GLOBAL-PeerCOD: 18 04 08
+GLOBAL-PeerSnkCOD: 1C 04 08
+
+
+####################################
+############## GLOBAL ##############
+####################################
+CASE-Global Setting:    # msgID, payload
+    CMD-reboot: F1
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-CloseScan: D1 02 00      #Msg[0xD1-CallBthFunc],FuncID[0x0002]
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-CancelConn: D1 04 01 PeerAddr #Msg[0xD1-CallBthFunc],FuncID[0x0104]
+	CMD-CleanPeerInfo: D1 03 00 #Msg[0xD1-CallBthFunc],FuncID[0x0003]
+#	CMD-DisconnBT: D1 02 01 00 00 #Msg[0xD1-CallBthFunc],FuncID[0x0102],Handle[0x0000]
+	CMD-DisconnBT: D1 03 01 PeerAddr #Msg[0xD1-CallBthFunc],FuncID[0x0103]
+
+
+####################################
+############### A2DP ###############
+####################################
+CASE-A2DP/SNK/AS/BV_01_I:  
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+CASE-A2DP/SNK/CC/BV_01_I: 
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+CASE-A2DP/SNK/CC/BV_02_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+CASE-A2DP/SNK/CC/BV_05_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+CASE-A2DP/SNK/CC/BV_06_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+CASE-A2DP/SNK/CC/BV_07_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+CASE-A2DP/SNK/CC/BV_08_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+CASE-A2DP/SNK/REL/BV_01_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+CASE-A2DP/SNK/SDP/BV_02_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+CASE-A2DP/SNK/SET/BV_01_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+CASE-A2DP/SNK/SET/BV_03_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+CASE-A2DP/SNK/SET/BV_05_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+CASE-A2DP/SNK/SYN/BV_01_C:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-SendDelayReport: D2 15 06 00 00 E8 03		#Msg[0xD2-CallBtpFunc],FuncID[0x0615],Handle[0x0000],Delay[0x03E8]
+CASE-A2DP/SRC/AS/BV_01_I:
+	CMD-SetCapacityParams: D2 22 06 08 02 01 01 04 20 20 #Msg[0xD2-CallBtpFunc],FuncID[0x0622],chnMode[0x00],frequency[0x00],allocation_method[0x00],subbands[0x00],block_length[0x12],min_bitpool[0x12],max_bitpool[0x12]
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-SendA2DPStart: D2 17 06 00 00		#Msg[0xD2-CallBtpFunc],FuncID[0x0617],Handle[0x0000]
+	CMD-SendMediaData: D2 23 06 00 00		#Msg[0xD2-CallBtpFunc],FuncID[0x0623],Handle[0x0000]
+CASE-A2DP/SRC/AS/BI_01_I:
+	CMD-SetCapacityParams: D2 22 06 08 02 01 01 04 20 20 #Msg[0xD2-CallBtpFunc],FuncID[0x0622],chnMode[0x00],frequency[0x00],allocation_method[0x00],subbands[0x00],block_length[0x12],min_bitpool[0x12],max_bitpool[0x12]
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-SendA2DPStart: D2 17 06 00 00		#Msg[0xD2-CallBtpFunc],FuncID[0x0617],Handle[0x0000]
+	CMD-SendMediaData: D2 23 06 00 00		#Msg[0xD2-CallBtpFunc],FuncID[0x0623],Handle[0x0000]
+CASE-A2DP/SRC/CC/BV_09_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-SendMediaData: D2 16 06 00 00		#Msg[0xD2-CallBtpFunc],FuncID[0x0616],Handle[0x0000]
+CASE-A2DP/SRC/CC/BV_10_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-SendMediaData: D2 19 06 00 00		#Msg[0xD2-CallBtpFunc],FuncID[0x0616],Handle[0x0000]
+CASE-A2DP/SRC/REL/BV_01_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-SendA2DPClose: D2 21 06 00 00		#Msg[0xD2-CallBtpFunc],FuncID[0x0621],Handle[0x0000]
+CASE-A2DP/SRC/REL/BV_02_I:
+	CMD-SetCapacityParams: D2 22 06 08 02 01 01 04 20 20 #Msg[0xD2-CallBtpFunc],FuncID[0x0622],chnMode[0x00],frequency[0x00],allocation_method[0x00],subbands[0x00],block_length[0x12],min_bitpool[0x12],max_bitpool[0x12]
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-SendA2DPStart: D2 17 06 00 00		#Msg[0xD2-CallBtpFunc],FuncID[0x0617],Handle[0x0000]
+	CMD-SendMediaData: D2 23 06 00 00		#Msg[0xD2-CallBtpFunc],FuncID[0x0623],Handle[0x0000]
+CASE-A2DP/SRC/SDP/BV_01_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+CASE-A2DP/SRC/SET/BV_01_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+CASE-A2DP/SRC/SET/BV_02_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+CASE-A2DP/SRC/SET/BV_03_I:
+	CMD-SetCapacityParams: D2 22 06 08 01 02 02 00 12 12 #Msg[0xD2-CallBtpFunc],FuncID[0x0622],chnMode[0x08],frequency[0x01],allocation_method[0x02],subbands[0x02],block_length[0x00],min_bitpool[0x12],max_bitpool[0x12]
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-SendA2DPStart: D2 17 06 00 00		#Msg[0xD2-CallBtpFunc],FuncID[0x0617],Handle[0x0000]
+	CMD-SendMediaData: D2 20 06 00 00		#Msg[0xD2-CallBtpFunc],FuncID[0x0620],Handle[0x0000]
+CASE-A2DP/SRC/SET/BV_04_I:
+	CMD-SetCapacityParams: D2 22 06 00 00 00 00 00 12 12 #Msg[0xD2-CallBtpFunc],FuncID[0x0622],chnMode[0x00],frequency[0x00],allocation_method[0x00],subbands[0x00],block_length[0x00],min_bitpool[0x12],max_bitpool[0x12]
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-SendMediaData: D2 20 06 00 00		#Msg[0xD2-CallBtpFunc],FuncID[0x0620],Handle[0x0000]
+CASE-A2DP/SRC/SET/BV_05_I:
+	CMD-SetCapacityParams: D2 22 06 08 01 02 02 00 12 12 #Msg[0xD2-CallBtpFunc],FuncID[0x0622],chnMode[0x08],frequency[0x01],allocation_method[0x02],subbands[0x02],block_length[0x00],min_bitpool[0x12],max_bitpool[0x12]
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-SendA2DPStart: D2 17 06 00 00		#Msg[0xD2-CallBtpFunc],FuncID[0x0617],Handle[0x0000]
+	CMD-SendMediaData: D2 20 06 00 00		#Msg[0xD2-CallBtpFunc],FuncID[0x0620],Handle[0x0000]
+	CMD-SetCapacityParams: D2 22 06 08 01 02 02 00 12 12 #Msg[0xD2-CallBtpFunc],FuncID[0x0622],chnMode[0x08],frequency[0x01],allocation_method[0x02],subbands[0x02],block_length[0x00],min_bitpool[0x12],max_bitpool[0x12]
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectSrc: D2 11 06 00 00  #Msg[0xD2-CallBtpFunc],FuncID[0x0611],Handle[0x0000]
+CASE-A2DP/SRC/SET/BV_06_I:
+	CMD-SetCapacityParams: D2 22 06 00 00 00 00 00 12 12 #Msg[0xD2-CallBtpFunc],FuncID[0x0622],chnMode[0x00],frequency[0x00],allocation_method[0x00],subbands[0x00],block_length[0x12],min_bitpool[0x12],max_bitpool[0x12]
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-SendMediaData: D2 20 06 00 00		#Msg[0xD2-CallBtpFunc],FuncID[0x0620],Handle[0x0000]
+	CMD-SetCapacityParams: D2 22 06 00 00 00 00 00 12 12 #Msg[0xD2-CallBtpFunc],FuncID[0x0622],chnMode[0x00],frequency[0x00],allocation_method[0x00],subbands[0x00],block_length[0x12],min_bitpool[0x12],max_bitpool[0x12]
+CASE-IOPT/CL/A2DP_SRC/SFC/BV_01_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-DeleteLinkKey: D2 1C 06 PeerAddr
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectSrc: D2 11 06 00 00  #Msg[0xD2-CallBtpFunc],FuncID[0x0611],Handle[0x0000]
+CASE-IOPT/CL/A2DP_SNK/SFC/BV_02_I:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-DeleteLinkKey: D2 1C 06 PeerAddr
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-ConnectSrc: D2 11 06 00 00  #Msg[0xD2-CallBtpFunc],FuncID[0x0611],Handle[0x0000]
+CASE-A2DP/SNK/AVP/BI_03_C:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-RejectCfg: D2 24 06 00 00 00 C3 00   #Msg[0xD1-CallBthFunc],FuncID[0x0624],Handle[0x0000], Identify[0x00], Reason[0x003C]  Reason errorID refer to "BTP_A2DTP_ERRID_ENUM" 
+CASE-A2DP/SNK/AVP/BI_08_C:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-RejectCfg: D2 24 06 00 00 00 C3 00   #Msg[0xD1-CallBthFunc],FuncID[0x0624],Handle[0x0000], Identify[0x00], Reason[0x003C]  Reason errorID refer to "BTP_A2DTP_ERRID_ENUM" 
+CASE-A2DP/SNK/AVP/BI_10_C:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-RejectCfg: D2 24 06 00 00 00 C1 00   #Msg[0xD1-CallBthFunc],FuncID[0x0624],Handle[0x0000], Identify[0x00], Reason[0x003C]  Reason errorID refer to "BTP_A2DTP_ERRID_ENUM" 
+CASE-A2DP/SNK/AVP/BI_11_C:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-RejectCfg: D2 24 06 00 00 00 C5 00   #Msg[0xD1-CallBthFunc],FuncID[0x0624],Handle[0x0000], Identify[0x00], Reason[0x003C]  Reason errorID refer to "BTP_A2DTP_ERRID_ENUM" 
+CASE-A2DP/SNK/AVP/BI_12_C:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-RejectCfg: D2 24 06 00 00 00 C7 00   #Msg[0xD1-CallBthFunc],FuncID[0x0624],Handle[0x0000], Identify[0x00], Reason[0x003C]  Reason errorID refer to "BTP_A2DTP_ERRID_ENUM" 
+CASE-A2DP/SNK/AVP/BI_13_C:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-RejectCfg: D2 24 06 00 00 00 C9 00   #Msg[0xD1-CallBthFunc],FuncID[0x0624],Handle[0x0000], Identify[0x00], Reason[0x003C]  Reason errorID refer to "BTP_A2DTP_ERRID_ENUM" 
+CASE-A2DP/SNK/AVP/BI_14_C:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-RejectCfg: D2 24 06 00 00 00 CB 00   #Msg[0xD1-CallBthFunc],FuncID[0x0624],Handle[0x0000], Identify[0x00], Reason[0x003C]  Reason errorID refer to "BTP_A2DTP_ERRID_ENUM" 
+CASE-A2DP/SNK/AVP/BI_15_C:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-RejectCfg: D2 24 06 00 00 00 CD 00   #Msg[0xD1-CallBthFunc],FuncID[0x0624],Handle[0x0000], Identify[0x00], Reason[0x003C]  Reason errorID refer to "BTP_A2DTP_ERRID_ENUM" 
+CASE-A2DP/SNK/AVP/BI_16_C:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-RejectCfg: D2 24 06 00 00 00 DD 00   #Msg[0xD1-CallBthFunc],FuncID[0x0624],Handle[0x0000], Identify[0x00], Reason[0x003C]  Reason errorID refer to "BTP_A2DTP_ERRID_ENUM" 
+CASE-A2DP/SNK/AVP/BI_20_C:
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-RejectCfg: D2 24 06 00 00 00 C2 00   #Msg[0xD1-CallBthFunc],FuncID[0x0624],Handle[0x0000], Identify[0x00], Reason[0x003C]  Reason errorID refer to "BTP_A2DTP_ERRID_ENUM" 

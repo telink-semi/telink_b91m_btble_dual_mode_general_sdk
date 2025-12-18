@@ -1,0 +1,31 @@
+################################  Description  ###########################
+# 1. The comment is #.
+# 2. The format of each case 'CASE-' + 'case_name' + ':'
+# 3. The format of each command 'CMD-' + 'command_name' + ':' + 'payload'
+
+
+
+####################################
+############## GLOBAL ##############
+####################################
+CASE-Global Setting:
+    CMD-Reboot: F1      #Msg[0xF1-Reboot]
+
+CASE-Test002_DUT:
+	CMD-Start: F2 02 00 01 #Msg[0xF2-Start],CaseID[0x0002],role[0x01-DUT]
+	CMD-Close: F4          #Msg[0xF4-Close]
+	
+CASE-Test002_AUT:	
+	CMD-Start: F2 02 00 02 #Msg[0xF2-Start],CaseID[0x0002],role[0x02-AUT]
+	CMD-Close: F4          #Msg[0xF4-Close]
+	CMD-AclSwitchStart: 01 01 20 4E 60 EA #MsgID[0x01],Enable[0x01],MinInterval[0x4E20-20s],MaxInterval[0xEA60=60s]
+	CMD-AclSwitchStop:  01 00 00 00 00 00 #MsgID[0x01],Enable[0x00]
+	CMD-ScoSwitchStart: 02 01 B8 0B 88 13 #MsgID[0x02],Enable[0x01],MinInterval[0x0BB8-3s],MaxInterval[0x1388=5s]
+	CMD-ScoSwitchStop:  02 00 00 00 00 00 #MsgID[0x02],Enable[0x00]
+	
+CASE-Test003_AUT2:
+	CMD-Start: F2 02 00 03 #Msg[0xF2-Start],CaseID[0x0002],role[0x03-AUT2]
+	CMD-Close: F4          #Msg[0xF4-Close]
+	CMD-AclSwitchStart: 01 01 B8 0B 20 4E #MsgID[0x01],Enable[0x01],MinInterval[0x0BB8-3s],MaxInterval[0x4E20-20s]
+	CMD-AclSwitchStop:  01 00 00 00 00 00 #MsgID[0x01],Enable[0x00]
+	

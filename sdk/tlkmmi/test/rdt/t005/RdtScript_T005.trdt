@@ -1,0 +1,25 @@
+################################  Description  ###########################
+# 1. The comment is #.
+# 2. The format of each case 'CASE-' + 'case_name' + ':'
+# 3. The format of each command 'CMD-' + 'command_name' + ':' + 'payload'
+
+
+
+####################################
+############## GLOBAL ##############
+####################################
+CASE-Global Setting:
+    CMD-Reboot: F1      #Msg[0xF1-Reboot]
+
+CASE-Test005_DUT:
+	CMD-Start: F2 05 00 01 #Msg[0xF2-Start],CaseID[0x0005],role[0x01-DUT]
+	CMD-Close: F4          #Msg[0xF4-Close]
+CASE-Test005_AUT:	
+	CMD-Start: F2 05 00 02 #Msg[0xF2-Start],CaseID[0x0005],role[0x02-AUT]
+	CMD-Close: F4          #Msg[0xF4-Close]
+CASE-Test005_AUT2:
+	CMD-Start: F2 05 00 03 #Msg[0xF2-Start],CaseID[0x0005],role[0x03-AUT2]
+	CMD-Close: F4          #Msg[0xF4-Close]
+
+# User need to set "TLKMMI_RDT_T005_BTADDR_AUT" to equal to the address of Phone.
+#	

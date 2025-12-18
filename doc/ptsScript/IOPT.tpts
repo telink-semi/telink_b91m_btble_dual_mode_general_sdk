@@ -1,0 +1,39 @@
+# The file can only be opened and edited using VSCode. 
+# Other methods will be encrypted by the encryption system, resulting in the file cannot be correctly parsed.
+# Mtype   msgID   TestClass   Payload(CMD_L   CMD_H ...)  
+
+################################  Description  ###########################
+# 1. The comment is #.
+# 2. The format of each case 'CASE-' + 'case_name' + ':'
+# 3. The format of each command 'CMD-' + 'command_name' + ':' + 'payload'
+
+
+#GLOBAL-PeerAddr: 17 B7 F4 DC 1B 00 
+GLOBAL-PeerAddr: 6C B7 F4 DC 1B 00
+GLOBAL-PeerCOD: 18 04 08
+GLOBAL-PeerSnkCOD: 1C 04 08
+
+
+####################################
+############## GLOBAL ##############
+####################################
+CASE-Global Setting:    # msgID, payload
+    CMD-reboot: F1
+	CMD-StartScan: D1 01 00 03   #Msg[0xD1-CallBthFunc],FuncID[0x0001],Enable[0x03]
+	CMD-CloseScan: D1 02 00      #Msg[0xD1-CallBthFunc],FuncID[0x0002]
+	CMD-ConnectBT: D1 01 01 PeerAddr PeerCOD 0x00 #Msg[0xD1-CallBthFunc],FuncID[0x0101],InitRole[0x00]
+	CMD-CancelConn: D1 04 01 PeerAddr #Msg[0xD1-CallBthFunc],FuncID[0x0104]
+	CMD-CleanPeerInfo: D1 03 00 #Msg[0xD1-CallBthFunc],FuncID[0x0003]
+#	CMD-DisconnBT: D1 02 01 00 00 #Msg[0xD1-CallBthFunc],FuncID[0x0102],Handle[0x0000]
+	CMD-DisconnBT: D1 03 01 PeerAddr #Msg[0xD1-CallBthFunc],FuncID[0x0103]
+
+
+####################################
+############### IOPT ###############
+####################################
+#CASE number: 5
+CASE-IOPT/SR/COD/BV_01_I:
+CASE-IOPT/CL/HFP_AG/COD/BV_02_I:
+CASE-IOPT/SR/SDSS/BV_02_I:
+CASE-IOPT/SR/SDAS/BV_03_I:
+CASE-IOPT/CL/SDR/BV_04_I:
