@@ -137,7 +137,9 @@ int tlkmmi_rdt_leCoreInit(void)
 	blc_gatt_register_data_handler(tlkmmi_rdt_leGattDataCB);
 	
 	/* SMP Initialization */
-	blc_smp_configPairingSecurityInfoStorageAddressAndSize(TLK_CFG_FLASH_LE_SMP_PAIRING_ADDR, TLK_CFG_FLASH_LE_SMP_PAIRING_SIZE);
+	addr = tlkcfg_getFlashAddr(TLK_CFG_FLASH_LE_SMP_PAIRING_ADDR);
+	if(addr == 0) return -TLK_EFAIL;
+	blc_smp_configPairingSecurityInfoStorageAddressAndSize(addr, TLK_CFG_FLASH_LE_SMP_PAIRING_SIZE);
 	blc_smp_setSecurityLevel_slave(Unauthenticated_Pairing_with_Encryption);  //LE_Security_Mode_1_Level_2
 	
 	//	blc_smp_setPairingMethods(LE_Secure_Connection); //TLKMMI_RDT_LE_MTU_SIZE or TLKMMI_LEMGR_ATT_MTU_MASTER_RX_MAX_SIZE >= 64

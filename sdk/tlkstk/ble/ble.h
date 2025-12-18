@@ -39,7 +39,8 @@
 #include "service/hids.h"
 #include "service/uuid.h"
 
-
+typedef unsigned int(*ble_getFlashAddr)(unsigned int offset);
+void ble_reg_getFlashAddrCB(ble_getFlashAddr ptr);
 
 
 /***********Customized configuration, Begin **************/

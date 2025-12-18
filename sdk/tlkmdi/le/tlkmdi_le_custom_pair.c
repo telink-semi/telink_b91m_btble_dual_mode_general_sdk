@@ -70,7 +70,10 @@ void user_tbl_slave_mac_delete_by_index(int index)  //remove the oldest adr in s
 {
 	//erase the oldest with ERASE_MARK
 	u8 delete_mark = ADR_ERASE_MARK;
-	flash_write_page (TLK_CFG_FLASH_LE_ADR_CUSTOM_PAIRING_ADDR + user_tbl_slaveMac.bond_flash_idx[index], 1, &delete_mark);
+	unsigned int addr = tlkcfg_getFlashAddr(TLK_CFG_FLASH_LE_ADR_CUSTOM_PAIRING_ADDR);
+	if(addr == 0) return;
+	
+	flash_write_page (addr + user_tbl_slaveMac.bond_flash_idx[index], 1, &delete_mark);
 
 	for(int i=index; i<user_tbl_slaveMac.curNum - 1; i++){ 	//move data
 		user_tbl_slaveMac.bond_flash_idx[i] = user_tbl_slaveMac.bond_flash_idx[i+1];
@@ -89,6 +92,9 @@ void user_tbl_slave_mac_delete_by_index(int index)  //remove the oldest adr in s
 int user_tbl_slave_mac_add(u8 adr_type, u8 *adr)  //add new mac address to table
 {
 	u8 add_new = 0;
+	unsigned int addr = tlkcfg_getFlashAddr(TLK_CFG_FLASH_LE_ADR_CUSTOM_PAIRING_ADDR);
+	if(addr == 0) return -TLK_EFAIL;
+	
 	if(user_tbl_slaveMac.curNum >= USER_PAIR_SLAVE_MAX_NUM){ //salve mac table is full
 		//slave mac max, telink use  method 1: overwrite the oldest one
 		user_tbl_slave_mac_delete_by_index(0);  //overwrite, delete index 0 (oldest) of table
@@ -110,7 +116,7 @@ int user_tbl_slave_mac_add(u8 adr_type, u8 *adr)  //add new mac address to table
 		user_tbl_slaveMac.bond_device[user_tbl_slaveMac.curNum].adr_type = adr_type;
 		memcpy(user_tbl_slaveMac.bond_device[user_tbl_slaveMac.curNum].address, adr, 6);
 
-		flash_write_page (TLK_CFG_FLASH_LE_ADR_CUSTOM_PAIRING_ADDR + user_bond_slave_flash_cfg_idx, 8, (u8 *)&user_tbl_slaveMac.bond_device[user_tbl_slaveMac.curNum] );
+		flash_write_page (addr + user_bond_slave_flash_cfg_idx, 8, (u8 *)&user_tbl_slaveMac.bond_device[user_tbl_slaveMac.curNum] );
 
 		user_tbl_slaveMac.bond_flash_idx[user_tbl_slaveMac.curNum] = user_bond_slave_flash_cfg_idx;  //mark flash idx
 		user_tbl_slaveMac.curNum++;
@@ -154,13 +160,16 @@ int user_tbl_slave_mac_search(u8 adr_type, u8 * adr)
  */
 int user_tbl_slave_mac_delete_by_adr(u8 adr_type, u8 *adr)  //remove adr from slave mac table by adr
 {
+	unsigned int addr = tlkcfg_getFlashAddr(TLK_CFG_FLASH_LE_ADR_CUSTOM_PAIRING_ADDR);
+	if(addr == 0) return -TLK_EFAIL;
+
 	for(int i=0;i<user_tbl_slaveMac.curNum;i++){
 		if( user_tbl_slaveMac.bond_device[i].adr_type == adr_type && \
 			!memcmp(user_tbl_slaveMac.bond_device[i].address ,adr, 6)){  //match
 
 			//erase the match adr
 			u8 delete_mark = ADR_ERASE_MARK;
-			flash_write_page (TLK_CFG_FLASH_LE_ADR_CUSTOM_PAIRING_ADDR + user_tbl_slaveMac.bond_flash_idx[i], 1, &delete_mark);
+			flash_write_page (addr + user_tbl_slaveMac.bond_flash_idx[i], 1, &delete_mark);
 
 			for(int j=i; j< user_tbl_slaveMac.curNum - 1;j++){ //move data
 				user_tbl_slaveMac.bond_flash_idx[j] = user_tbl_slaveMac.bond_flash_idx[j+1];
@@ -185,8 +194,11 @@ int user_tbl_slave_mac_delete_by_adr(u8 adr_type, u8 *adr)  //remove adr from sl
 void user_tbl_slave_mac_delete_all(void)  //delete all the  adr in slave mac table
 {
 	u8 delete_mark = ADR_ERASE_MARK;
+	unsigned int addr = tlkcfg_getFlashAddr(TLK_CFG_FLASH_LE_ADR_CUSTOM_PAIRING_ADDR);
+	if(addr == 0) return;
+	
 	for(int i=0; i< user_tbl_slaveMac.curNum; i++){
-		flash_write_page (TLK_CFG_FLASH_LE_ADR_CUSTOM_PAIRING_ADDR + user_tbl_slaveMac.bond_flash_idx[i], 1, &delete_mark);
+		flash_write_page (addr + user_tbl_slaveMac.bond_flash_idx[i], 1, &delete_mark);
 		memset( (u8 *)&user_tbl_slaveMac.bond_device[i], 0, 8);
 		//user_tbl_slaveMac.bond_flash_idx[i] = 0;  //do not  concern
 	}
@@ -209,6 +221,7 @@ u8 adbg_flash_clean;
  */
 void	user_bond_slave_flash_clean (void)
 {
+	unsigned int addr = 0;
 #if	DBG_FLASH_CLEAN
 	if (user_bond_slave_flash_cfg_idx < 8*8)  //debug, max 8 area, then clean flash
 #else
@@ -218,9 +231,12 @@ void	user_bond_slave_flash_clean (void)
 		return;
 	}
 
+	addr = tlkcfg_getFlashAddr(TLK_CFG_FLASH_LE_ADR_CUSTOM_PAIRING_ADDR);
+	if(addr == 0) return;
+	
 	adbg_flash_clean = 1;
 
-	flash_erase_sector (TLK_CFG_FLASH_LE_ADR_CUSTOM_PAIRING_ADDR);
+	flash_erase_sector (addr);
 
 	user_bond_slave_flash_cfg_idx = -8;  //init value for no bond slave mac
 
@@ -229,7 +245,7 @@ void	user_bond_slave_flash_clean (void)
 		//u8 add_mark = ADR_BOND_MARK;
 
 		user_bond_slave_flash_cfg_idx += 8;  //inc flash idx to get the new 8 bytes area
-		flash_write_page (TLK_CFG_FLASH_LE_ADR_CUSTOM_PAIRING_ADDR + user_bond_slave_flash_cfg_idx, 8, (u8*)&user_tbl_slaveMac.bond_device[i] );
+		flash_write_page (addr + user_bond_slave_flash_cfg_idx, 8, (u8*)&user_tbl_slaveMac.bond_device[i] );
 
 		user_tbl_slaveMac.bond_flash_idx[i] = user_bond_slave_flash_cfg_idx;  //update flash idx
 	}
@@ -243,13 +259,16 @@ void	user_bond_slave_flash_clean (void)
 void	user_master_host_pairing_flash_init(void)
 {
 	u8 flag;
+	unsigned int addr = tlkcfg_getFlashAddr(TLK_CFG_FLASH_LE_ADR_CUSTOM_PAIRING_ADDR);
+	if(addr == 0) return;
+	
 	for (user_bond_slave_flash_cfg_idx=0; user_bond_slave_flash_cfg_idx<4096; user_bond_slave_flash_cfg_idx+=8)
 	{ //traversing 8 bytes area in sector 0x11000 to find all the valid slave mac adr
-		flash_read_page(TLK_CFG_FLASH_LE_ADR_CUSTOM_PAIRING_ADDR + user_bond_slave_flash_cfg_idx, 1, &flag);
+		flash_read_page(addr + user_bond_slave_flash_cfg_idx, 1, &flag);
 		if( flag == ADR_BOND_MARK ){  //valid adr
 			if(user_tbl_slaveMac.curNum < USER_PAIR_SLAVE_MAX_NUM){
 				user_tbl_slaveMac.bond_flash_idx[user_tbl_slaveMac.curNum] = user_bond_slave_flash_cfg_idx;
-				flash_read_page (TLK_CFG_FLASH_LE_ADR_CUSTOM_PAIRING_ADDR + user_bond_slave_flash_cfg_idx, 8, (u8 *)&user_tbl_slaveMac.bond_device[user_tbl_slaveMac.curNum] );
+				flash_read_page (addr + user_bond_slave_flash_cfg_idx, 8, (u8 *)&user_tbl_slaveMac.bond_device[user_tbl_slaveMac.curNum] );
 				user_tbl_slaveMac.curNum ++;
 			}
 			else{ //slave mac in flash more than max, we think it's code bug

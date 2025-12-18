@@ -43,8 +43,14 @@ int bth_device_init(void)
 {
     int ret;
     uint08 index;
+	unsigned int addr0, addr1;
 
     tmemset(&sBthDeviceCtrl, 0, sizeof(bth_device_ctrl_t));
+	addr0 = tlkcfg_getFlashAddr(BTH_DEVICE_SAVE_ADDR0);
+	addr1 = tlkcfg_getFlashAddr(BTH_DEVICE_SAVE_ADDR1);
+	if(addr0 == 0 || addr1 == 0) {
+		return -TLK_EFAIL;
+	}
 
     // Init
     for (index = 0; index < BTH_DEVICE_ITEM_NUMB; index++) {
@@ -57,8 +63,8 @@ int bth_device_init(void)
                             BTH_DEVICE_SAVE_SIGN,
                             BTH_DEVICE_SAVE_VERS,
                             BTH_DEVICE_ITEM_LENS,
-                            BTH_DEVICE_SAVE_ADDR0,
-                            BTH_DEVICE_SAVE_ADDR1);
+                            addr0,
+                            addr1);
     if (ret != TLK_ENONE) {
         tlkapi_error(BTH_DEV_DBG_FLAG, BTH_DEV_DBG_SIGN, "bth_device_init: init failure");
     }

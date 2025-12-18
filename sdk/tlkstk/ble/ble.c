@@ -28,7 +28,7 @@
 #include "ble.h"
 
 
-
+static ble_getFlashAddr ble_getFlashAddrCB = nullptr;
 
 /********************* ACL connection LinkLayer TX & RX data FIFO allocation, Begin *******************************/
 
@@ -112,6 +112,10 @@ struct APP_BLE_EVT_C_T {
 } app_ble_evt_c;        //Control related data and marks
 #endif
 
+void ble_reg_getFlashAddrCB(ble_getFlashAddr ptr)
+{
+	ble_getFlashAddrCB = ptr;
+}
 
 int app_controller_event_cback(u32 h, u8 *p, int n)
 {
@@ -306,6 +310,7 @@ int app_gatt_data_handler(u16 connHandle, u8 *pkt)
 
 int bleh_init(void)
 {
+	unsigned int addr = 0;
 	#if (TLK_CFG_PM_ENABLE)
 	blc_ll_initPowerManagement_module();
 	#endif
@@ -332,7 +337,11 @@ int bleh_init(void)
 
 	/* SMP Initialization */
 	#if (TLK_LE_PERIPHR_SMP_ENABLE || TLK_BLE_CENTRAL_SMP_ENABLE)
-	blc_smp_configPairingSecurityInfoStorageAddressAndSize(TLK_CFG_FLASH_LE_SMP_PAIRING_ADDR, TLK_CFG_FLASH_LE_SMP_PAIRING_SIZE);
+	if(ble_getFlashAddrCB == nullptr) return -TLK_EFAIL;
+	addr = ble_getFlashAddrCB(TLK_CFG_FLASH_LE_SMP_PAIRING_ADDR);
+	if(addr == 0) return -TLK_EFAIL;
+	
+	blc_smp_configPairingSecurityInfoStorageAddressAndSize(addr, TLK_CFG_FLASH_LE_SMP_PAIRING_SIZE);
 	#endif
 
 	#if (TLK_LE_PERIPHR_SMP_ENABLE)
