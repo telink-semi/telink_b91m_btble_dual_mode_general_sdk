@@ -1,65 +1,3 @@
-## V5.3.0.0_Patch_0001(PR)
-
-### Dependency Updates
-
-- N/A
-
-### Features
-
-- N/A
-
-### Bug Fixs
-
-- Fixed an issue  of program running abnormally when the storage location of bin file exceeds the 0xFC000 location of chip flash.
-
-### KNOWN ISSUES
-
-- N/A
-
-### BREAKING CHANGES
-
-- **Application**
-  - Add the binding mechanism between MDI layer BLE configuration information and chip flash capacity
-    - Add the flash capacity binding mechanism of the TLK_CFG_FLASH_LE_ADR_CUSTOM_PAIRING_ADDR macro in tlkmdi_le_custom_pair.c
-    - Add the flash capacity binding mechanism of the TLK_CFG_FLASH_LE_SDP_ATT_ADRR macro in tlkmdi_le_simple_sdp.c
-  - Add the binding mechanism between MMI layer BT Audio configuration information and chip flash capacity
-    - Add the flash capacity binding mechanism of the BTH_DEVICE_SAVE_ADDR0 macro in tlkmmi_audioInfo.c
-- **Stack**
-  - Add the binding mechanism between BT pairing information and chip flash capacity 
-    - Add the flash capacity binding mechanism of the BTH_DEVICE_SAVE_ADDR0 and  BTH_DEVICE_SAVE_ADDR1 macro in bth_device.c
-  - Add the binding mechanism between BLE pairing information and chip flash capacity
-    - Add the flash capacity binding mechanism of the TLK_CFG_FLASH_LE_SMP_PAIRING_ADDR macro in ble.c
-
-### Dependency Updates
-
-- N/A
-
-### Features
-
-- N/A
-
-### Bug Fixs
-
-- 修复bin文件存储位置超出芯片flash的0xFC000位置后引发程序运行异常的问题
-
-### KNOWN ISSUES
-
-- N/A
-
-### BREAKING CHANGES
-
-- **Application**
-  - 添加MDI层BLE配置信息与芯片flash容量绑定的机制
-    - tlkmdi_le_custom_pair.c中添加TLK_CFG_FLASH_LE_ADR_CUSTOM_PAIRING_ADDR宏的flash容量绑定机制
-    - tlkmdi_le_simple_sdp.c中添加TLK_CFG_FLASH_LE_SDP_ATT_ADRR宏的flash容量绑定机制
-  - 添加MMI层BT Audio配置信息与芯片flash容量绑定的机制
-    - tlkmmi_audioInfo.c中添加BTH_DEVICE_SAVE_ADDR0宏的flash容量绑定机制
-- **Stack**
-  - 添加BT配对信息与芯片flash容量绑定的机制
-    - bth_device.c中添加BTH_DEVICE_SAVE_ADDR0、BTH_DEVICE_SAVE_ADDR1宏的flash容量绑定机制
-  - 添加BLE配对信息与芯片flash容量绑定的机制
-    - ble.c中添加TLK_CFG_FLASH_LE_SMP_PAIRING_ADDR宏的flash容量绑定机制
-
 ## V5.3.0.0(PR)
 
 ### Dependency Updates
@@ -89,7 +27,7 @@
 
 ### BREAKING CHANGES
 
-- Merge the SDKs for B91 and B92, upgrade the corresponding IDE to Telink IoT Studio, and update the associated Toolchain to gcc10. You will need to install the new [Telink IoT Studio](https://wiki.telink-semi.cn/wiki/IDE-and-Tools/Telink_IoT_Studio/) to compile projects in the SDK. For the b91_btble_dual_mode_general_sdk V5.1.3.0 and earlier versions, please continue using [Telink V323 RDS](https://wiki.telink-semi.cn/tools_and_sdk/Tools/IDE/telink_v323_rds_official_windows.zip)- Adjustment of part of the B91 interface to align with the B92 interface
+- Merge the projects of B91 and B92 and align B91 with the toolchains of B92
 - Adjustment of part of the B91 interface to align with the B92 interface
 - Split system tasks to separate out device task and debug task
 - Refactor device's driver code, and support getting available device list and running device list
@@ -136,7 +74,7 @@
 
 ### BREAKING CHANGES
 
-- 将 B91 和 B92 的 SDK 合并，并将配套的 IDE 升级为 Telink IoT Studio，同时将配套的 Toolchain 升级到 gcc10，您需要安装新的 [Telink IoT Studio](https://wiki.telink-semi.cn/wiki/IDE-and-Tools/Telink_IoT_Studio/) 来编译 SDK 里的工程。b91_btble_dual_mode_general_sdk V5.1.3.0 及之前版本的 SDK 请继续使用 [Telink V323 RDS](https://wiki.telink-semi.cn/tools_and_sdk/Tools/IDE/telink_v323_rds_official_windows.zip)
+- 合并B91和B92的SDK，并将B91与B92的toolchains保持一致
 - 调整部分B91接口，与B92接口保持一致
 - 将系统任务拆分，独立出设备管理和调试管理任务
 - 重构设备驱动代码，支持获取可用设备列表和运行设备列表

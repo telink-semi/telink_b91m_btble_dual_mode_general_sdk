@@ -1,0 +1,24 @@
+**************************************************************************
+                                                                        
+                       Telink SDK Patch Guide                              
+                                                                            
+                                                                        
+**************************************************************************
+
+1. patch_0002
+	replace file "telink_b91m_btble_dual_mode_general_sdk/sdk/tlklib/lib/libB91_stack.a" with "patch_0002/tlklib/lib/libB91_stack.a",
+	replace file "telink_b91m_btble_dual_mode_general_sdk/sdk/tlklib/lib/libB92_stack.a" with "patch_0002/tlklib/lib/libB92_stack.a",
+	replace file "telink_b91m_btble_dual_mode_general_sdk/sdk/tlkmdi/aud/tlkmdi_audsco.c" with "patch_0002/tlkmdi/aud/tlkmdi_audsco.c",
+	replace file "telink_b91m_btble_dual_mode_general_sdk/sdk/tlkmdi/le/tlkmdi_le_simple_sdp.c" with "patch_0002/tlkmdi/le/tlkmdi_le_simple_sdp.c",
+	replace file "telink_b91m_btble_dual_mode_general_sdk/sdk/tlkmdi/le/tlkmdi_leAcl.h" with "patch_0002/tlkmdi/le/tlkmdi_leAcl.h",	
+	replace file "telink_b91m_btble_dual_mode_general_sdk/sdk/tlkmmi/audio/tlkmmi_audioInfo.c" with "patch_0002/tlkmmi/audio/tlkmmi_audioInfo.c",		
+	replace file "telink_b91m_btble_dual_mode_general_sdk/sdk/tlkmmi/lemgr/tlkmmi_lemgrAcl.c" with "patch_0002/tlkmmi/lemgr/tlkmmi_lemgrAcl.c",		
+	replace file "telink_b91m_btble_dual_mode_general_sdk/sdk/tlkmmi/test/rdt/le/tlkmmi_rdt_leCore.c" with "patch_0002/tlkmmi/test/rdt/le/tlkmmi_rdt_leCore.c",		
+	replace file "telink_b91m_btble_dual_mode_general_sdk/sdk/tlkstk/ble/controller/ll/ll.h" with "patch_0002/tlkstk/ble/controller/ll/ll.h",			
+	replace file "telink_b91m_btble_dual_mode_general_sdk/sdk/tlkstk/ble/host/gap/gap_event.h" with "patch_0002/tlkstk/ble/host/gap/gap_event.h",		
+	replace file "telink_b91m_btble_dual_mode_general_sdk/sdk/tlkstk/ble/host/l2cap/l2cap_signal.h" with "patch_0002/tlkstk/ble/host/l2cap/l2cap_signal.h",	
+	replace file "telink_b91m_btble_dual_mode_general_sdk/sdk/tlkstk/ble/ble.c" with "patch_0002/tlkstk/ble/ble.c",				
+	replace file "telink_b91m_btble_dual_mode_general_sdk/sdk/tlkstk/ble/ble_common.h" with "patch_0002/tlkstk/ble/ble_common.h",		
+	replace file "telink_b91m_btble_dual_mode_general_sdk/sdk/tlkstk/bt/bth/bth_device.c" with "patch_0002/tlkstk/bt/bth/bth_device.c",	
+	replace file "telink_b91m_btble_dual_mode_general_sdk/sdk/tlkstk/btble/btble.h" with "patch_0002/tlkstk/btble/btble.h",	
+	replace file "telink_b91m_btble_dual_mode_general_sdk/sdk/tlkstk/tlkstk_config.h" with "patch_0002/tlkstk/tlkstk_config.h"

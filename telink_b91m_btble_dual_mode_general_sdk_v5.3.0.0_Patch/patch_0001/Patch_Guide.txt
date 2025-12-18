@@ -1,0 +1,13 @@
+**************************************************************************
+                                                                        
+                       Telink SDK Patch Guide                              
+                                                                            
+                                                                        
+**************************************************************************
+
+1. patch_0001
+	replace file "telink_b91m_btble_dual_mode_general_sdk/sdk/tlkmdi/le/tlkmdi_le_simple_sdp.c" with "patch_0001/tlkmdi/le/tlkmdi_le_simple_sdp.c",
+	replace file "telink_b91m_btble_dual_mode_general_sdk/sdk/tlkmmi/audio/tlkmmi_audioInfo.c" with "patch_0001/tlkmmi/audio/tlkmmi_audioInfo.c",			
+	replace file "telink_b91m_btble_dual_mode_general_sdk/sdk/tlkmmi/test/rdt/le/tlkmmi_rdt_leCore.c" with "patch_0001/tlkmmi/test/rdt/le/tlkmmi_rdt_leCore.c",		
+	replace file "telink_b91m_btble_dual_mode_general_sdk/sdk/tlkstk/ble/ble.c" with "patch_0001/tlkstk/ble/ble.c",						
+	replace file "telink_b91m_btble_dual_mode_general_sdk/sdk/tlkstk/bt/bth/bth_device.c" with "patch_0001/tlkstk/bt/bth/bth_device.c",	
