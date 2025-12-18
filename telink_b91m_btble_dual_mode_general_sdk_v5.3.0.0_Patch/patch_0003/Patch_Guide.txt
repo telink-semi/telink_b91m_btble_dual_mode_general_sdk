@@ -1,0 +1,10 @@
+**************************************************************************
+                                                                        
+                       Telink SDK Patch Guide                              
+                                                                            
+                                                                        
+**************************************************************************
+
+1. patch_0003
+	- Replace all corresponding files.
+	- Patch 0003 includes all the modifications of the historical patches. You only need to incorporate the changes made in the patch 0003 file.

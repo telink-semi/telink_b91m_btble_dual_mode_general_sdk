@@ -1,0 +1,1 @@
+此demo为在BT的Extend inquiry response中添加客户自定义的Device information的使用示例。

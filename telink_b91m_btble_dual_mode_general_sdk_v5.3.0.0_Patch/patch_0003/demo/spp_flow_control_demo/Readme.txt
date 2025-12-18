@@ -1,0 +1,1 @@
+此demo为SPP收到数据后，通过UART转发的使用demo。由于应用层的处理，UART的发送速率低于SPP的接收速率，因此为spp的接收添加了流控机制，使用实例参考app_spp_process.c
